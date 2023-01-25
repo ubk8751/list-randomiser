@@ -57,12 +57,16 @@ def split(n:int = 2, lists:list=[], l:list = []):
 def write_file(split_file:str = "split_list.txt", divided_file:str = "divided_list.txt", lsts:list = []):
     if lsts == []:
         return "Bruh, I need something to export!"
+    tot_len = 0
     f = open(split_file, "w")
     for l in lsts:
         for itm in l:
             f.write(itm + "\n")
         EOL = "List length: " + str(len(l)) + "\n\n"
+        tot_len += len(l)
         f.write(EOL)
+    
+    f.write("Total number of papapers: " + str(tot_len))
     return "File was created properly!? :D"
     
 
