@@ -24,7 +24,7 @@ def open_urls(l:list=[]):
     return "Done"
 
 def main(l:list = []):
-    l = open_file("split_list.txt", l)
+    l = open_file("test.txt", l)
     print(open_urls(l))
 
 if __name__ == "__main__":

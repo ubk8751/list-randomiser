@@ -1,6 +1,23 @@
 from random import shuffle
 from math import ceil
 
+unrelated_papers = [{ "link": "https://link.springer.com/article/10.1007/s10015-020-00671-x", "reason": "inte video/bild" },
+                    { "link": "https://link.springer.com/article/10.1007/s11280-020-00813-y", "reason": "inte video/bild" },
+                    { "link": "https://arxiv.org/abs/2206.03178" , "reason": "detta handlar om text" },
+                    { "link": "https://arxiv.org/abs/2203.15283", "reason": "detta handlar om ljud" }, 
+                    { "link": "https://arxiv.org/abs/2112.12095", "reason": "detta handlar om kryptografi" }, 
+                    { "link": "https://arxiv.org/abs/2005.10637", "reason": "detta är ljud" },
+                    { "link": "https://arxiv.org/abs/2102.06747", "reason": "detta handlar om malware" },
+                    { "link": "https://arxiv.org/abs/2009.11508", "reason": "osäker på denna"},
+                    { "link": "https://arxiv.org/abs/2008.06860", "reason": "detta handlar om NLP" },
+                    { "link": "https://arxiv.org/abs/2203.15283", "reason": "detta är ljud" },
+                    { "link": "https://arxiv.org/abs/2008.13261", "reason": "detta är time-series data" },
+                    { "link": "https://arxiv.org/abs/1812.11377", "reason": "osäker på denna" },
+                    { "link": "https://arxiv.org/abs/1809.01829", "reason": "text classification" },
+                    { "link": "https://arxiv.org/abs/2112.11660", "reason": "detta är NLP"},
+                    { "link": "https://arxiv.org/abs/2109.01165", "reason": "lite iffy på denna"}]
+bad_links = [i["link"] for i in unrelated_papers]
+
 def main(l:list = []):
     l1, l2, l3, l4, l5 = ([] for i in range(5))
     l = make_list("OG_list.txt", [])
@@ -30,6 +47,22 @@ def make_list(file_name:str = "list.txt", l:list = []):
             line = line[0:-1]
         count += 1
         if line not in (l):
+            l.append(line)
+    return l
+
+def make_clean_list(file_name:str = "list.txt", l:list = []):
+    # Using readlines()
+    file1 = open(file_name, 'r')
+    Lines = file1.readlines()
+    count = 0
+    # Strips the newline character
+    for line in Lines:
+        if "Notes:" in line or line == "\n":
+            break
+        elif "\n" in line:
+            line = line[0:-1]
+        count += 1
+        if line not in (l) and line not in bad_links:
             l.append(line)
     return l
 
@@ -66,7 +99,7 @@ def write_file(split_file:str = "split_list.txt", divided_file:str = "divided_li
         tot_len += len(l)
         f.write(EOL)
     
-    f.write("Total number of papapers: " + str(tot_len))
+    f.write("Total number of papapers: " + str(tot_len) + "\n")
     return "File was created properly!? :D"
     
 
